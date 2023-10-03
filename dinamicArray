@@ -1,0 +1,156 @@
+package sep20;
+
+public class DinamicArray {
+
+    private  int[] array;
+    private int newLength = 3;
+    private static int length = 2;
+    int size;
+
+    DinamicArray(){
+        array = new int[length];
+    }
+
+    public DinamicArray(int length) {
+
+        array = new int[length];
+    }
+    private void Array(){
+
+      int[] curentarray = new int[array.length+ 1];
+      for(int i =0;i< array.length;i++){
+          curentarray[i] = array[i];
+      }
+      array = new int[array.length+1];
+      array = curentarray;
+    }
+
+    private void print(){
+        for (int i = 0; i < size; i++) {
+            System.out.println(array[i]);
+        }
+    }
+    void add(int item) {
+         if(size == array.length) {
+
+             resize(newLength);
+             if(newLength <= size){
+                 size = newLength  ;
+                 Array();
+             }
+
+         }
+             array[size] = item;
+             System.out.println(array[size]);
+             size++;
+
+
+    }
+
+   private void resize(int newLength) {
+
+        if(size > newLength){
+            int[] arrayCurrent = new int[newLength];
+
+            for(int i = 0; i<newLength ; i++){
+                arrayCurrent[i] = array[i];
+            }
+
+            array = new int[newLength];
+
+            for (int i = 0; i<arrayCurrent.length ;i++){
+                array[i] = arrayCurrent[i];
+            }
+
+        }
+
+
+       if(size < newLength) {
+           int[] arrayCurrent = new int[size];
+
+
+           for(int i = 0; i<size ; i++){
+                arrayCurrent[i] = array[i];
+            }
+
+           array = new int[newLength];
+           for (int i = 0; i<arrayCurrent.length ;i++){
+               array[i] = arrayCurrent[i];
+           }
+        }
+
+
+
+    }
+
+
+    int getSize(){
+        return size;
+    }
+
+    void remove(int index) {
+
+
+            for (int i = index; i< size - 1 ;i++){
+                array[i] = array[i+1];
+            }
+            size--;
+            print();
+
+    }
+
+    void  insert(int element, int index){
+
+
+        int[] arr2 = new int[size];
+        for (int i = 0; i<size ; i++){
+            arr2[i]= array[i];
+        }
+        if(array.length == size){
+            Array();
+        }
+
+         if(size<array.length){
+             size++;
+             for (int i = 0; i < index; i++) {
+               array[i] =arr2[i];
+             }
+
+             if(size -1 == array.length)
+             {
+                 for (int i = index + 1 ; i < array.length; i++)
+                     array[i] = arr2[i-1];
+
+             }else {
+                 for (int i = index + 1 ; i < size; i++)
+                     array[i] = arr2[i-1];
+
+             }
+
+             array[index]=element;
+
+
+
+         }
+
+
+         print();
+    }
+}
+
+class Main{
+    public static void main(String[] args) {
+        DinamicArray dinamicArray = new DinamicArray();
+        dinamicArray.add(2);
+        dinamicArray.add(1);
+        dinamicArray.add(5);
+        dinamicArray.add(123);
+
+
+        //dinamicArray.remove(2);
+         dinamicArray.insert(100,1);
+        dinamicArray.insert(100,2);
+
+
+    }
+}

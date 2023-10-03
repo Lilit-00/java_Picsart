@@ -1,0 +1,101 @@
+package Gorc_02_10_23;
+
+/*
+1.Factorial Calculation: Write a recursive function to calculate the factorial of a given number.
+2. Implement the Binary Search algorithm ( Iterative and recursive).
+3.Write function that print the elements of array recursively.
+4.Implement Selection Sort algorithm.*/
+
+public class Task {
+    public static void main(String[] args) {
+       // System.out.println(factorial(5));
+        //print(5);
+
+      /*  int[] arr = {1,2,3,4};
+        printRecursive(arr,0);*/
+
+        int[] arr = {8,3,5,9,3,7};
+        selectionSort(arr);
+        for(int x:arr){
+            System.out.println(x);
+        }
+        System.out.println(binaryRecursive(arr,7,0,arr.length));
+    }
+
+    static int factorial(int number) {
+        if(number == 0 || number == 1){
+            return 1;
+        }
+        return  number * factorial(number - 1);
+    }
+    static void printRecursive(int[] arr, int index){
+        if( index == arr.length ){
+            return;
+        }
+        System.out.println(arr[index]);
+        printRecursive(arr,index + 1);
+    }
+    static void print(int x){
+        if(x == 0)return;
+        print(x-1);
+        System.out.println(x);
+    }
+
+  static   void selectionSort(int[] arr){
+        int currentMinIndex;
+        int currentMin;
+        int temp;
+
+        for(int i = 0;i<arr.length -1 ;i++){
+
+            currentMinIndex = i;
+            currentMin = arr[i];
+            for(int j = i+1;j < arr.length;j++){
+                if(currentMin > arr[j]){
+                    currentMin= arr[j];
+                    currentMinIndex = j;
+                }
+            }
+
+
+            if(currentMinIndex != i){
+                temp = arr[i];
+                arr[i] = arr[currentMinIndex];
+                arr[currentMinIndex] = temp;
+            }
+        }
+    }
+
+
+    static  int binaryIterative(int[] array,int item) {
+
+        int middel ,start = 0,end = array.length;
+
+        while (start <= end){
+            middel = start + (end - start)/2;
+           if (array[middel] == item){
+               return middel;
+           } else if (array[middel]>item) {
+               end = middel-1;
+           }else start =middel;
+        }
+
+        return -1;
+    }
+
+
+
+    static int binaryRecursive(int[] arr,int item,int start,int end) {
+
+        int middle = start + (end - start)/2;
+
+        if(arr[middle] == item)return middle;
+        if(arr[middle] > item) binaryRecursive(arr,item,start,middle-1);
+        binaryRecursive(arr,item,middle,end);
+
+        return  -1;
+    }
+
+}
+
+
